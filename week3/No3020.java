@@ -2,59 +2,52 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.*;
 
-class No7795 {
+public class No3020 {
 
-    public static void main(String[] args) throws Exception {
-       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-       BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+static int N, H;
 
-        int T = Integer.parseInt(br.readLine());
-        for (int i = 0; i < T; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int N = Integer.parseInt(st.nextToken());
-            int M = Integer.parseInt(st.nextToken());
+public static void main(String[] args) throws Exception {
 
-            int[] A = new int[N];
-            int[] B = new int[M];
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-            st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < N; j++) {
-                A[j] = Integer.parseInt(st.nextToken());
-            }
+        String[] input = br.readLine().split(" ");
+        N = Integer.parseInt(input[0]);
+        H = Integer.parseInt(input[1]);
 
-            st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < M; j++) {
-                B[j] = Integer.parseInt(st.nextToken());
-            }
+        int[] bot = new int[H + 2];
+        int[] top = new int[H + 2];
 
-            Arrays.sort(B);
-            int result = 0;
-
-            for (int j = 0; j < N; j++) {
-                int first = 0;
-                int end = M - 1;
-                int index = 0;
-
-                while (first <= end) {
-                    int mid = (first + end) / 2;
-                    if (B[mid] < A[j]) {
-                        first = mid + 1;
-                        index = mid + 1;
-                    }
-                    else {
-                        end = mid - 1;
-                    }
-                }
-                result += index;
-            }
-
-            bw.write(Integer.toString(result) + "\n");
+        for (int i = 0; i < N / 2; i++) {
+                bot[Integer.parseInt(br.readLine())]++;
+                top[H - Integer.parseInt(br.readLine()) + 1]++;
         }
 
-       bw.flush();
-       bw.close();
-       br.close();
-    }
+        for (int i = 1; i <= H; i++) {
+                bot[i] += bot[i - 1];
+        }
+
+        for (int i = H; i >= 1; i--) {
+                top[i] += top[i + 1];
+        }
+
+        int min = N;
+        int cnt = 0;
+
+        for (int i = 1; i <= H; i++) {
+                int obs = (bot[H] - bot[i - 1]) + (top[1] - top[i + 1]);
+
+                if (obs < min) {
+                        min = obs;
+                        cnt = 1;
+                } else if (obs == min)
+                        cnt++;
+        }
+
+        bw.write(min + " " + cnt + "\n");
+        bw.flush();
+
+}
+
 }

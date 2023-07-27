@@ -6,11 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-/**
- * 먹을 것인가 먹힐 것인가
- * https://www.acmicpc.net/problem/7795
- */
-public class BOJ_7795 {
+public class No7795 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int t = Integer.parseInt(br.readLine());
@@ -22,6 +18,7 @@ public class BOJ_7795 {
             int n = Integer.parseInt(st.nextToken());
             int m = Integer.parseInt(st.nextToken());
             int[] a = new int[n];
+            
             st = new StringTokenizer(br.readLine());
             for (int i = 0; i < n; i++) {
                 a[i] = Integer.parseInt(st.nextToken());
